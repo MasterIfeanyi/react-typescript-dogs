@@ -26,6 +26,12 @@ li{
   list-style: none;
 }
 
+a{
+  text-decoration: none;
+  color: #222;
+  transition: all 0.4s ease;
+}
+
 .App{
   display: flex;
   flex-direction: column;
@@ -50,6 +56,89 @@ footer{
 }
 
 /* custom styling */
+
+.input-group{
+  padding: 10px;
+}
+
+.input-group input {
+  padding: 0.5rem;
+  /* width: 85%; */
+  flex: 1;  
+  font-size: 1.5rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: black;
+}
+
+.input-group input:focus{
+  box-shadow: none;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.searchForm {
+  width: 95%;
+  border: 2px solid #000;
+  border-radius: 2em;
+  overflow: hidden;
+  font-size: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+}
+
+.form-control {
+  /* padding: 0.5rem;
+  width: 85%;
+  flex: 1;  
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  background: transparent;
+  outline: none;
+  color: black; */
+  /* background: #1f2123; */
+}
+
+.form-control:focus {
+  /* box-shadow: none;
+  outline: none;
+  border: none;
+  background: transparent; */
+}
+
+.search:focus-within {
+  box-shadow: 2px 2px 5px #000;
+}
+
+.search__button {
+  width: 15%;
+  font-size: 1.5rem;
+  color: gray;
+  display: grid;
+  place-content: center;
+}
+
+.search__button,
+.search__input {
+  /* background-color: #fff; */
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+
+
+
+
+
+
+
+
 
 select.select-tag{
   border: none;

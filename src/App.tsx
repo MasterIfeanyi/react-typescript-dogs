@@ -1,12 +1,21 @@
 import './App.css';
 import Header from "./components/Header"
 import Footer from './components/Footer';
-import {useState, useEffect}  from "react"
-import WelcomeNote from './components/WelcomeNote';
+import {useState, useContext, useEffect}  from "react"
 import Select from './components/Select';
 import Dog from './components/Dog';
+import DataContext from './context/DataContext';
+import Form from './components/Form';
+import Card from './components/Card';
 
 function App() {
+
+
+  // debounced query
+  let {debouncedQuery} = useContext(DataContext)
+
+  // API url
+  const API_URL = `https://dog.ceo/api/breeds/list/all`
 
   // fill the select tag with name of all the breeds
   const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
@@ -19,9 +28,10 @@ function App() {
   useEffect(() => {
     const start = async () => {
       try {
-        const response = await fetch("https://dog.ceo/api/breeds/list/all")
+        const response = await fetch(API_URL)
         const data = await response.json()
         console.log(data.message)
+        // setNameOfBreeds(data.message)
         setNameOfBreeds(data.message)
       } catch (error) {
         const err = error as Error
@@ -30,22 +40,36 @@ function App() {
     }
 
     start()
+
+    // eslint-disable-next-line
   }, [])
 
 
-  // get the images of the breed that is choosen
-  const loadByBreed = async (breed: string) => {
-    if (breed !== "Choose a dog breed") {
+  useEffect(() => {
+    // get the images of the breed that is choosen
+    const loadByBreed = async (value: string) => {
+      
+
+    if(!value) {
+      setImagesOfABreed([]);
+      return;
+    }
+      
       try {
-        const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`)
+        const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
         const data = await response.json()
+        console.log(data)
         setImagesOfABreed(data.message)
       } catch (error) {
         const err = error as Error
         console.log(err.message)
       }
     }
-  }
+
+
+    loadByBreed(debouncedQuery);
+
+  }, [debouncedQuery])
 
 
 
@@ -54,12 +78,26 @@ function App() {
       <Header />
       <section className="section">
         <div className="container">
-          <WelcomeNote />
-          <Select 
+
+          <Form />
+
+          {/* <Select 
             nameOfBreeds={nameOfBreeds}
             setBreedName={setBreedName}
             loadByBreed={loadByBreed}
-          />
+          /> */}
+
+
+          {}
+
+          { imagesOfABreed?.length ? imagesOfABreed.map((data) => {
+            return (
+              <Card key={data} img={data} />
+            )
+          }) : <p>Nothing</p>}
+
+
+
           <Dog
             breedName={breedName}
             imagesOfABreed={imagesOfABreed}
