@@ -5,15 +5,16 @@
 }
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1rem;
 }
 
-body{
+body {
   min-height: 100vh;
 }
 
-img{
+img {
   width: 100%;
 }
 
@@ -22,49 +23,49 @@ ul {
   padding: 0;
 }
 
-li{
+li {
   list-style: none;
 }
 
-a{
+a {
   text-decoration: none;
   color: #222;
   transition: all 0.4s ease;
 }
 
-.App{
+.App {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
-.section{
+.section {
   background-color: whitesmoke;
   border: 1px solid blue;
   flex: 1;
 }
 
-.Header{
+.Header {
   padding: 1rem;
   background-color: #007bff;
 }
 
-footer{
+footer {
   background-color: #007bff;
   text-align: center;
 }
 
 /* custom styling */
 
-.input-group{
+.input-group {
   padding: 10px;
 }
 
 .input-group input {
   padding: 0.5rem;
   /* width: 85%; */
-  flex: 1;  
+  flex: 1;
   font-size: 1.5rem;
   font-weight: 500;
   background: transparent;
@@ -73,7 +74,7 @@ footer{
   color: black;
 }
 
-.input-group input:focus{
+.input-group input:focus {
   box-shadow: none;
   outline: none;
   border: none;
@@ -131,33 +132,24 @@ footer{
   outline: none;
 }
 
-
-
-
-
-
-
-
-
-
-select.select-tag{
+select.select-tag {
   border: none;
-	outline: none;
+  outline: none;
   border-radius: 15px;
-	background: none;
-	padding: 0.5rem 1rem;
-	font-size: 18px;
+  background: none;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
   background-color: #7c7c7c2b;
   color: black;
 }
 
-select.select-tag:focus{
-	border: none;
-	outline: none;
+select.select-tag:focus {
+  border: none;
+  outline: none;
   border-radius: 15px;
-	font-size: 18px;
-	padding: 0.5rem 1rem;
-	background-color: #7c7c7c2b;
+  font-size: 18px;
+  padding: 0.5rem 1rem;
+  background-color: #7c7c7c2b;
   color: black;
   outline: 0;
   box-shadow: none;
@@ -170,7 +162,7 @@ select.select-tag:focus{
   object-fit: cover;
 }
 
-.dogCard-image{
+.dogCard-image {
   position: relative;
   overflow: hidden;
   transition: all 0.5s ease;
@@ -182,10 +174,9 @@ select.select-tag:focus{
   height: 100%;
 }
 
-.dogCard-image:hover img{
+.dogCard-image:hover img {
   transform: scale(1.1);
 }
-
 
 .intro-text {
   font-weight: 600;

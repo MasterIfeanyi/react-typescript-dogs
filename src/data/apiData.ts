@@ -1,9 +1,8 @@
 export const apiData = {
-    african: [],
-    pitbull: [],
-    beagle: [],
-    bulldog: [],
-}
+  african: [],
+  pitbull: [],
+  beagle: [],
+  bulldog: [],
+};
 
-
-export const imagesOfABreed = ["african1", "african2"]
+export const imagesOfABreed = ["african1", "african2"];

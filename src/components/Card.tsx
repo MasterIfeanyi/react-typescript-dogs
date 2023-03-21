@@ -1,23 +1,22 @@
-import React from 'react'
+import React from "react";
 
 type CardProps = {
-  img: string
-}
+  img: string;
+};
 
-
-const Card = ({img}: CardProps) => {
+const Card = ({ img }: CardProps) => {
   return (
     <div className="col-lg-4">
       <div className="dogCard">
-          <div className="dogCard-image">
-              <img src={img} alt="" />
-          </div>
-          <div className="text-center mt-2">
-            {/* <h5>{breedName.toUpperCase()}</h5> */}
-          </div>
+        <div className="dogCard-image">
+          <img src={img} alt="" />
+        </div>
+        <div className="text-center mt-2">
+          {/* <h5>{breedName.toUpperCase()}</h5> */}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

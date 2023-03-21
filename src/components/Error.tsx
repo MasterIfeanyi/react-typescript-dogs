@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
 type ErrorProps = {
-    fetchError: string
-}
+  fetchError: string;
+};
 
-const Error = ({fetchError}: ErrorProps) => {
+const Error = ({ fetchError }: ErrorProps) => {
   return (
     <div className="col-12 text-center">
-        <p>{fetchError}</p>
+      <p>{fetchError}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;
