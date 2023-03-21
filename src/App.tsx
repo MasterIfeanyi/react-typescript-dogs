@@ -18,6 +18,8 @@ function App() {
   // fill the select tag with name of all the breeds
   const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
 
+  const [errMsg, setErrMsg] = useState<string>("")
+
 
   // set the images of the breed you want
   const [imagesOfABreed, setImagesOfABreed] = useState<string[]>([])
@@ -51,32 +53,38 @@ function App() {
   // get the images of the breed that is choosen
   const loadByBreed = async (value: string) => {
     
-        try {
-          const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
-          const data = await response.json()
-  
-      
-          if(data.message.startsWith('Breed not found')){
-            setFetchError("breed not found");
-            return
-          }
-          
-          if(data.message === 'No route found'){
-            setFetchError("breed name cannot be empty");
-            return
-          } 
-           
-          console.log(data)
-          setImagesOfABreed(data.message)
-          setFetchError("")
-          
-      
-        } catch (error) {
-          const err = error as Error
-          console.log(err.message)
-          setFetchError("")
-        }
+    if(!value) return
+    
+    
+    if(!value && value === "") {
+      setFetchError("Please type in a breed name");
+      return;
     }
+    
+    try {
+      
+      const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
+      const data = await response.json()   
+      
+
+      if (data.message === "Breed not found (master breed does not exist)") {
+        setFetchError(data.message);
+      }
+
+      console.log(data.message)
+      setImagesOfABreed(data.message)
+      
+    } catch (error) {
+      const err = error as Error
+      console.log(err.message)
+
+      if(err.message.startsWith('No route found')){
+        setFetchError("breed name cannot be empty");
+      } else {
+        setFetchError(err.message);
+      }
+    }
+  }
 
 
   useEffect(() => { 
@@ -110,7 +118,7 @@ function App() {
 
           <div className="row g-4 my-3">
             <>
-              {debouncedQuery &&  Array.isArray(imagesOfABreed) && imagesOfABreed?.length ? (imagesOfABreed).map((data) => {
+              { debouncedQuery &&  Array.isArray(imagesOfABreed) && imagesOfABreed?.length ? (imagesOfABreed).map((data) => {
                 return (
                   <Card key={data} img={data} />
                 )
