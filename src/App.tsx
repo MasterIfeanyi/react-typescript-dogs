@@ -16,16 +16,14 @@ function App() {
   const API_URL = `https://dog.ceo/api/breeds/list/all`
 
   // fill the select tag with name of all the breeds
-  const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
-
-  const [errMsg, setErrMsg] = useState<string>("")
+  // const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
 
 
   // set the images of the breed you want
   const [imagesOfABreed, setImagesOfABreed] = useState<string[]>([])
 
   // choose the breed you want 
-  const [breedName, setBreedName] = useState<string>("")
+  // const [breedName, setBreedName] = useState<string>("")
 
   // handle error
   const [fetchError, setFetchError] = useState<string>("");
@@ -37,7 +35,7 @@ function App() {
         const response = await fetch(API_URL)
         const data = await response.json()
         console.log(data.message)
-        setNameOfBreeds(data.message)
+        // setNameOfBreeds(data.message)
       } catch (error) {
         const err = error as Error
         console.log(err.message)
@@ -55,12 +53,11 @@ function App() {
     
     if(!value) return
     
-    
     if(!value && value === "") {
       setFetchError("Please type in a breed name");
       return;
     }
-    
+
     try {
       
       const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
@@ -68,7 +65,7 @@ function App() {
       
 
       if (data.message === "Breed not found (master breed does not exist)") {
-        setFetchError(data.message);
+        setFetchError(data.message.slice(0, 16));
       }
 
       console.log(data.message)
