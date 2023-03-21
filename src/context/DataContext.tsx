@@ -30,7 +30,7 @@ export const DataContextProvider = (props: DataContextProviderProps) => {
   
       if(!e.target.value) return
   
-      setSearch(e.target.value); 
+      setSearch((e.target.value).toLowerCase()); 
   
     }
   
