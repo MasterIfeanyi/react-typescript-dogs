@@ -23,12 +23,12 @@ export const DataContextProvider = (props: DataContextProviderProps) => {
 
     const [search, setSearch] = useState<string>("")
 
-    let debouncedQuery = useDebounce(search, 1500)
+    let debouncedQuery = useDebounce(search, 500)
   
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   
-      if(!e.target.value) setSearch("akita")
+      if(!e.target.value) return
   
       setSearch(e.target.value); 
   
