@@ -96,9 +96,9 @@ function App() {
               {debouncedQuery &&
               Array.isArray(imagesOfABreed) &&
               imagesOfABreed?.length ? (
-                imagesOfABreed.map((data) => {
-                  return <Card key={data} img={data} />;
-                })
+                imagesOfABreed.map((image, index) => (
+                  <Card key={index} img={image} />
+                ))
               ) : (
                 <Error fetchError={fetchError} />
               )}

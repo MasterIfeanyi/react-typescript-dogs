@@ -6,6 +6,7 @@ import App from "../App";
 import Select from "../components/Select";
 import { apiData } from "../data/apiData";
 import Dog from "../components/Dog";
+import { ComponentProps } from "react";
 
 test("should correctly set default option", async () => {
   server.use(
@@ -90,11 +91,10 @@ test("select name and display data", async () => {
     expect((selectInput as HTMLOptionElement).selected).toBe(true);
   });
 
-  type componentProps = React.ComponentProps<typeof Dog>;
+  type componentProps = ComponentProps<typeof Dog>;
 
   const props: componentProps = {
     imagesOfABreed: ["african1", "african2"],
-    breedName: "african",
   };
 
   render(<Dog {...props} />);

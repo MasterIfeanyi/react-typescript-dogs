@@ -9,10 +9,7 @@ const Card = ({ img }: CardProps) => {
     <div className="col-lg-4">
       <div className="dogCard">
         <div className="dogCard-image">
-          <img src={img} alt="" />
-        </div>
-        <div className="text-center mt-2">
-          {/* <h5>{breedName.toUpperCase()}</h5> */}
+          <img src={img} alt="A dog" />
         </div>
       </div>
     </div>
