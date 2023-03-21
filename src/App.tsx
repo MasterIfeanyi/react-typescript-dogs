@@ -5,6 +5,8 @@ import DataContext from "./context/DataContext";
 import Form from "./components/Form";
 import Card from "./components/Card";
 import Error from "./components/Error";
+import axios, { AxiosError } from "axios";
+
 import { useAsyncEffect } from "./hooks/useAsyncEffect";
 
 const App = () => {
@@ -25,20 +27,17 @@ const App = () => {
   // useEffect(() => {
   //   const start = async () => {
   //     try {
-  //       const response = await fetch(API_URL)
-  //       const data = await response.json()
-  //       console.log(data.message)
-  //       setNameOfBreeds(data.message)
+  //       const { data } = await axios.get(API_URL);
+  //       console.log(data.message);
+  //       // setNameOfBreeds(data.message)
   //     } catch (error) {
-  //       const err = error as Error
-  //       console.log(err.message)
+  //       const err = error as Error;
+  //       console.log(err.message);
   //     }
-  //   }
-
-  //   start()
-
-  //   // eslint-disable-next-line
-  // }, [])
+  //   };
+  //
+  //   start().then(() => console.log("started app"));
+  // }, []);
 
   // get the images of the breed that is chosen
   useAsyncEffect(
@@ -53,20 +52,22 @@ const App = () => {
       }
 
       try {
-        const response = await fetch(
-          `https://dog.ceo/api/breed/${debouncedQuery}/images`
+        const { data } = await axios.get(
+          `https://dog.ceo/api/breed/${debouncedQuery.toLowerCase()}/images`
         );
-        const data = await response.json();
 
-        if (data.message === "Breed not found (master breed does not exist)") {
-          setFetchError("Breed not found");
-        }
-
-        console.log(data.message);
         setImagesOfABreed(data.message);
       } catch (error) {
-        const err = error as Error;
-        console.log(err.message);
+        const err = error as AxiosError;
+        console.log(err);
+
+        setImagesOfABreed([]);
+
+        if (err.code === "ERR_BAD_REQUEST") {
+          setFetchError(`No images found for the breed ${debouncedQuery}`);
+        } else {
+          setFetchError(err.message);
+        }
       }
     },
     async () => {},
@@ -79,18 +80,6 @@ const App = () => {
       <section className="section">
         <div className="container">
           <Form />
-
-          {/* <Select
-            nameOfBreeds={nameOfBreeds}
-            setBreedName={setBreedName}
-            loadByBreed={loadByBreed}
-          /> */}
-
-          {/* <Dog
-            breedName={breedName}
-            imagesOfABreed={imagesOfABreed}
-          /> */}
-
           <div className="row g-4 my-3">
             <>
               {debouncedQuery &&
