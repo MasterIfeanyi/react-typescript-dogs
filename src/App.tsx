@@ -1,12 +1,13 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import DataContext from "./context/DataContext";
 import Form from "./components/Form";
 import Card from "./components/Card";
 import Error from "./components/Error";
+import { useAsyncEffect } from "./hooks/useAsyncEffect";
 
-function App() {
+const App = () => {
   // debounced query
   const { debouncedQuery } = useContext(DataContext);
 
@@ -39,39 +40,38 @@ function App() {
   //   // eslint-disable-next-line
   // }, [])
 
-  // get the images of the breed that is choosen
-  const loadByBreed = async (value: string) => {
-    // if (!nameOfBreeds.includes(value)) {
-    //   setFetchError("Breed not found")
-    // };
+  // get the images of the breed that is chosen
+  useAsyncEffect(
+    async () => {
+      // if (!nameOfBreeds.includes(value)) {
+      //   setFetchError("Breed not found")
+      // };
 
-    if (!value && value === "") {
-      setFetchError("Please type in a breed name");
-      return;
-    }
-
-    try {
-      const response = await fetch(`https://dog.ceo/api/breed/${value}/images`);
-      const data = await response.json();
-
-      if (data.message === "Breed not found (master breed does not exist)") {
-        // setFetchError(data.message.slice(0, 16));
-        setFetchError("Breed not found");
+      if (!debouncedQuery && debouncedQuery === "") {
+        setFetchError("Please type in a breed name");
+        return;
       }
 
-      console.log(data.message);
-      setImagesOfABreed(data.message);
-    } catch (error) {
-      const err = error as Error;
-      console.log(err.message);
-    }
-  };
+      try {
+        const response = await fetch(
+          `https://dog.ceo/api/breed/${debouncedQuery}/images`
+        );
+        const data = await response.json();
 
-  useEffect(() => {
-    loadByBreed(debouncedQuery);
+        if (data.message === "Breed not found (master breed does not exist)") {
+          setFetchError("Breed not found");
+        }
 
-    // eslint-disable-next-line
-  }, [debouncedQuery]);
+        console.log(data.message);
+        setImagesOfABreed(data.message);
+      } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+      }
+    },
+    async () => {},
+    [debouncedQuery]
+  );
 
   return (
     <main className="App">
@@ -80,7 +80,7 @@ function App() {
         <div className="container">
           <Form />
 
-          {/* <Select 
+          {/* <Select
             nameOfBreeds={nameOfBreeds}
             setBreedName={setBreedName}
             loadByBreed={loadByBreed}
@@ -109,6 +109,6 @@ function App() {
       <Footer />
     </main>
   );
-}
+};
 
 export default App;

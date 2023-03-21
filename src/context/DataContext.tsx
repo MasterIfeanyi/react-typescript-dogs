@@ -21,10 +21,10 @@ type DataContextType = {
 const DataContext = createContext({} as DataContextType);
 
 export const DataContextProvider = (props: DataContextProviderProps) => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
 
   // handle error
-  const [fetchError, setFetchError] = useState<string>("");
+  const [fetchError, setFetchError] = useState("");
 
   // set the images of the breed you want
   const [imagesOfABreed, setImagesOfABreed] = useState<string[]>([]);
