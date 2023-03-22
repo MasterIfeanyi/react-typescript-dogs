@@ -1,6 +1,6 @@
 import Header from "./components/Header"
 import Footer from './components/Footer';
-import {useState, useContext, useEffect}  from "react"
+import {useContext, useEffect}  from "react"
 import DataContext from './context/DataContext';
 import Form from './components/Form';
 import Card from './components/Card';
@@ -10,10 +10,8 @@ import Error from "./components/Error";
 function App() {
 
   // debounced query
-  let {debouncedQuery} = useContext(DataContext)
-
-  // API url
-  const API_URL = `https://dog.ceo/api/breeds/list/all`
+  const {debouncedQuery} = useContext(DataContext)
+  
 
   // fill the select tag with name of all the breeds
   // const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
