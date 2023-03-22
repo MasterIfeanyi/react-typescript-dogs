@@ -16,17 +16,15 @@ function App() {
   const API_URL = `https://dog.ceo/api/breeds/list/all`
 
   // fill the select tag with name of all the breeds
-  // const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
+  const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
 
 
-  // set the images of the breed you want
-  const [imagesOfABreed, setImagesOfABreed] = useState<string[]>([])
 
   // choose the breed you want 
   // const [breedName, setBreedName] = useState<string>("")
 
-  // handle error
-  const [fetchError, setFetchError] = useState<string>("");
+  // useContext
+  const {fetchError, setFetchError, imagesOfABreed, setImagesOfABreed} = useContext(DataContext)
 
   // when component mounts fill the select tag with names of all the breed
   useEffect(() => {
@@ -51,35 +49,35 @@ function App() {
   // get the images of the breed that is choosen
   const loadByBreed = async (value: string) => {
     
-    if(!value) return
+    
+    if (!nameOfBreeds.includes(value)) {
+      setFetchError("Breed not found")
+    };
     
     if(!value && value === "") {
       setFetchError("Please type in a breed name");
       return;
     }
 
+
     try {
-      
+
       const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
       const data = await response.json()   
-      
+    
 
-      if (data.message === "Breed not found (master breed does not exist)") {
-        setFetchError(data.message.slice(0, 16));
-      }
+      // if (data.message === "Breed not found (master breed does not exist)"  ) {
+        
+      //   setFetchError(data.message.slice(0, 16));
+      // }
 
       console.log(data.message)
       setImagesOfABreed(data.message)
       
+      
     } catch (error) {
       const err = error as Error
       console.log(err.message)
-
-      if(err.message.startsWith('No route found')){
-        setFetchError("breed name cannot be empty");
-      } else {
-        setFetchError(err.message);
-      }
     }
   }
 
