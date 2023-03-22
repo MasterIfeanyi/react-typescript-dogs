@@ -33,7 +33,7 @@ function App() {
         const response = await fetch(API_URL)
         const data = await response.json()
         console.log(data.message)
-        // setNameOfBreeds(data.message)
+        setNameOfBreeds(data.message)
       } catch (error) {
         const err = error as Error
         console.log(err.message)
@@ -50,9 +50,9 @@ function App() {
   const loadByBreed = async (value: string) => {
     
     
-    if (!nameOfBreeds.includes(value)) {
-      setFetchError("Breed not found")
-    };
+    // if (!nameOfBreeds.includes(value)) {
+    //   setFetchError("Breed not found")
+    // };
     
     if(!value && value === "") {
       setFetchError("Please type in a breed name");
@@ -66,10 +66,12 @@ function App() {
       const data = await response.json()   
     
 
-      // if (data.message === "Breed not found (master breed does not exist)"  ) {
+      if (data.message === "Breed not found (master breed does not exist)"  ) {
         
-      //   setFetchError(data.message.slice(0, 16));
-      // }
+        // setFetchError(data.message.slice(0, 16));
+        setFetchError("Breed not found")
+
+      }
 
       console.log(data.message)
       setImagesOfABreed(data.message)
