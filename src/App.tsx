@@ -16,7 +16,7 @@ function App() {
   const API_URL = `https://dog.ceo/api/breeds/list/all`
 
   // fill the select tag with name of all the breeds
-  const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
+  // const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
 
 
 
@@ -27,23 +27,23 @@ function App() {
   const {fetchError, setFetchError, imagesOfABreed, setImagesOfABreed} = useContext(DataContext)
 
   // when component mounts fill the select tag with names of all the breed
-  useEffect(() => {
-    const start = async () => {
-      try {
-        const response = await fetch(API_URL)
-        const data = await response.json()
-        console.log(data.message)
-        setNameOfBreeds(data.message)
-      } catch (error) {
-        const err = error as Error
-        console.log(err.message)
-      }
-    }
+  // useEffect(() => {
+  //   const start = async () => {
+  //     try {
+  //       const response = await fetch(API_URL)
+  //       const data = await response.json()
+  //       console.log(data.message)
+  //       setNameOfBreeds(data.message)
+  //     } catch (error) {
+  //       const err = error as Error
+  //       console.log(err.message)
+  //     }
+  //   }
 
-    start()
+  //   start()
 
-    // eslint-disable-next-line
-  }, [])
+  //   // eslint-disable-next-line
+  // }, [])
 
 
   // get the images of the breed that is choosen
