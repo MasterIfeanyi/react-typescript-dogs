@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 import useDebounce from '../hooks/useDebounce';
 
 type DataContextProviderProps = {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 type DataContextType = {
@@ -15,6 +15,8 @@ type DataContextType = {
     setFetchError: React.Dispatch<React.SetStateAction<string>>,
     imagesOfABreed: string[],
     setImagesOfABreed: React.Dispatch<React.SetStateAction<string[]>>,
+    isLoading: boolean,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
     debouncedQuery: string
 }
 
@@ -35,6 +37,7 @@ export const DataContextProvider = (props: DataContextProviderProps) => {
 
     let debouncedQuery = useDebounce(search, 500)
   
+    const [isLoading, setIsLoading] = useState<boolean>(false)
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -49,7 +52,7 @@ export const DataContextProvider = (props: DataContextProviderProps) => {
 
 return (
     <DataContext.Provider value= {{ handleSubmit, handleSearchChange, search, setSearch, debouncedQuery, fetchError, setFetchError,
-      imagesOfABreed, setImagesOfABreed
+    imagesOfABreed, setImagesOfABreed, isLoading, setIsLoading
     }}>
       { props.children }
     </DataContext.Provider>

@@ -12,7 +12,7 @@ function App() {
 
 
   // useContext
-  const {fetchError, debouncedQuery, setFetchError, imagesOfABreed, setImagesOfABreed} = useContext(DataContext)
+  const {fetchError, setIsLoading, isLoading, debouncedQuery, setFetchError, imagesOfABreed, setImagesOfABreed} = useContext(DataContext)
 
 
 
@@ -36,6 +36,8 @@ function App() {
 
     try {
 
+      setIsLoading(true);
+
       const response = await fetch(`https://dog.ceo/api/breed/${value}/images`, { signal: controller.signal })
       const data = await response.json();   
 
@@ -45,7 +47,7 @@ function App() {
 
       console.log(data.message)
       setImagesOfABreed(data.message)
-      
+      setIsLoading(false);
       
     } catch (error) {
       const err = error as Error
@@ -73,11 +75,22 @@ function App() {
 
           <div className="row g-4 my-3">
             <>
-              { debouncedQuery &&  Array.isArray(imagesOfABreed) && imagesOfABreed?.length ? (imagesOfABreed).map((data) => {
+              {
+              isLoading 
+                ? <div className="col-12 text-center">
+                  <div className="mexican-wave my-5"></div>
+                </div>
+               : debouncedQuery &&  Array.isArray(imagesOfABreed) && imagesOfABreed?.length ? (imagesOfABreed).map((data) => {
+                  return (
+                    <Card key={data} img={data} />
+                  )
+                }) : (<Error fetchError={fetchError} />)
+              }
+              {/* { debouncedQuery &&  Array.isArray(imagesOfABreed) && imagesOfABreed?.length ? (imagesOfABreed).map((data) => {
                 return (
                   <Card key={data} img={data} />
                 )
-              }) : (<Error fetchError={fetchError} />)}
+              }) : (<Error fetchError={fetchError} />)} */}
             </>
           </div>
           
