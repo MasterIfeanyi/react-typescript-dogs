@@ -10,39 +10,22 @@ import Error from "./components/Error";
 function App() {
  
 
-  // fill the select tag with name of all the breeds
-  // const [nameOfBreeds, setNameOfBreeds] = useState<string[]>([])
-
-
-
-  // choose the breed you want 
-  // const [breedName, setBreedName] = useState<string>("")
 
   // useContext
   const {fetchError, debouncedQuery, setFetchError, imagesOfABreed, setImagesOfABreed} = useContext(DataContext)
 
-  // when component mounts fill the select tag with names of all the breed
-  // useEffect(() => {
-  //   const start = async () => {
-  //     try {
-  //       const response = await fetch(API_URL)
-  //       const data = await response.json()
-  //       console.log(data.message)
-  //       setNameOfBreeds(data.message)
-  //     } catch (error) {
-  //       const err = error as Error
-  //       console.log(err.message)
-  //     }
-  //   }
-
-  //   start()
-
-  //   // eslint-disable-next-line
-  // }, [])
 
 
-  // get the images of the breed that is choosen
-  const loadByBreed = async (value: string) => {
+
+  
+
+
+  useEffect(() => { 
+
+    const controller = new AbortController();
+
+    // get the images of the breed that is choosen
+    const loadByBreed = async (value: string) => {
     
     
     if(!value && value === "") {
@@ -53,7 +36,7 @@ function App() {
 
     try {
 
-      const response = await fetch(`https://dog.ceo/api/breed/${value}/images`)
+      const response = await fetch(`https://dog.ceo/api/breed/${value}/images`, { signal: controller.signal })
       const data = await response.json();   
 
       if (data.message === "Breed not found (master breed does not exist)"  ) {
@@ -67,14 +50,12 @@ function App() {
     } catch (error) {
       const err = error as Error
       console.log(err.message);
-      setImagesOfABreed([]);
     }
   }
-
-
-  useEffect(() => { 
   
     loadByBreed(debouncedQuery);
+
+    return () => controller.abort();
     
     // eslint-disable-next-line
   }, [debouncedQuery])
@@ -88,17 +69,6 @@ function App() {
         <div className="container">
 
           <Form />
-
-          {/* <Select 
-            nameOfBreeds={nameOfBreeds}
-            setBreedName={setBreedName}
-            loadByBreed={loadByBreed}
-          /> */}
-
-          {/* <Dog
-            breedName={breedName}
-            imagesOfABreed={imagesOfABreed}
-          /> */}
 
 
           <div className="row g-4 my-3">
