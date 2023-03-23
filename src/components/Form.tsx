@@ -23,6 +23,7 @@ const Form = () => {
               className="form-control" 
               onChange={handleSearchChange}
               id="search"
+              autoComplete='off'
               placeholder='Search for any dog breed'
               />
 
